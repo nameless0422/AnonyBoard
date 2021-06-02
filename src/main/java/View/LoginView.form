@@ -76,7 +76,7 @@
                   <text value="ID"/>
                 </properties>
               </component>
-              <component id="378eb" class="javax.swing.JTextField" default-binding="true">
+              <component id="378eb" class="javax.swing.JTextField" binding="ID_TEXTFIELD">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="250" height="-1"/>
@@ -100,7 +100,7 @@
                   <text value="PASSWORD"/>
                 </properties>
               </component>
-              <component id="48a16" class="javax.swing.JPasswordField" default-binding="true">
+              <component id="48a16" class="javax.swing.JPasswordField" binding="PSWD_TEXTFIELD">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="250" height="-1"/>
@@ -130,7 +130,7 @@
             <properties>
               <borderPainted value="true"/>
               <font size="18"/>
-              <text value="regster"/>
+              <text value="register"/>
             </properties>
           </component>
           <vspacer id="63bf1">
