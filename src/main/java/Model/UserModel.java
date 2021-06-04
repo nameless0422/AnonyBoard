@@ -11,4 +11,5 @@ public class UserModel {
     public void setUSER_ID(int idx){
         USER_ID = idx;
     }
+
 }

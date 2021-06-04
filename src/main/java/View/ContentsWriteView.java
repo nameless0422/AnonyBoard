@@ -1,50 +1,39 @@
 package View;
 
+import Controler.MainProcess;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.Session;
+
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-import Controler.MainProcess;
-import Model.UserModel;
-import com.jcraft.jsch.*;
-import com.sun.tools.javac.Main;
-
-
-public class LoginView {
-
+public class ContentsWriteView {
+    private JPanel MainPanel;
+    private JTextArea textArea1;
+    private JTextField textField1;
+    private JButton saveButton;
+    private JList list1;
+    private JButton addFileButton;
     private MainProcess mainProcess;
-    private JPanel login;
-    private JButton loginButton;
-    private JButton regsterButton;
-    private JTextField ID_TEXTFIELD;
-    private JPasswordField PSWD_TEXTFIELD;
-    private JLabel logoLabel;
     private JFrame frame;
-
-    private ImageIcon icon;
-
-    public LoginView(MainProcess p){
+    public ContentsWriteView(MainProcess p){
         mainProcess = p;
+
         frame = new JFrame();
-        icon = new ImageIcon(this.getClass().getResource("/logo.png"));
-        Image img = icon.getImage();
-        img = img.getScaledInstance(800,430,Image.SCALE_SMOOTH);
-        icon = new ImageIcon(img);
-        logoLabel.setIcon(icon);
-        frame.setContentPane(login);
+        frame.setContentPane(MainPanel);
         frame.setSize(800,600);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
 
-
-        // 회원가입 기능 구현
-        regsterButton.addActionListener(new ActionListener() {
+        addFileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UserModel user = new UserModel(ID_TEXTFIELD.getText(),Integer.toString(PSWD_TEXTFIELD.getPassword().toString().hashCode() & 0x7fffffff));
+
+
+
                 try {
                     // ssh 터널링
                     JSch jsch = new JSch();
@@ -67,50 +56,24 @@ public class LoginView {
                     }
 
                     // db에 쿼리 쏘기
-                    String sql = "SELECT COUNT(*) FROM user WHERE ID='" + user.ID +"';";
+                    String sql = "";
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery(sql);
 
-                    // 아이디 중복 체크
                     while(rs.next()) {
-                        if(rs.getInt("COUNT(*)")>0) {
-                            System.out.println("중복되는 아이디 입니다.");
-                            return;
-                        }
                     }
 
-                    // 유저정보 db에 전송
-                    sql = "INSERT into user(ID,PASSWORD) values (?,?);";
-                    PreparedStatement pstmt = con.prepareStatement(sql);
-                    pstmt.setString(1, user.ID);
-                    pstmt.setString(2, user.PASSWORD);
-                    int r = pstmt.executeUpdate();
-                    System.out.println("변경된 row : " + r);
-
-                    sql = "SELECT * FROM user WHERE ID='" + user.ID + "';";
-                    stmt = con.createStatement();
-                    rs = stmt.executeQuery(sql);
-                    while (rs.next()){
-                        user.USER_ID = rs.getInt("USER_ID");
-                    }
-                    pstmt.close();
                     stmt.close();
                     con.close();
-                mainProcess.User = user;
-                mainProcess.loginView.frame.setVisible(false);
                 }catch (Exception ex){
                     System.out.println("오류 내역\n"+ex);
                 }
             }
         });
-
-        // todo : 로그인 기능 구현
-        loginButton.addActionListener(new ActionListener() {
+        saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UserModel user = new UserModel(ID_TEXTFIELD.getText(),Integer.toString(PSWD_TEXTFIELD.getPassword().toString().hashCode() & 0x7fffffff));
-                try
-                {
+                try {
                     // ssh 터널링
                     JSch jsch = new JSch();
                     Session session = jsch.getSession("root", "106.10.57.242", 5000);
@@ -125,36 +88,28 @@ public class LoginView {
                     String driver = "org.mariadb.jdbc.Driver";
                     Class.forName(driver);
                     con = DriverManager.getConnection("jdbc:mariadb://localhost:8001/anonyBoard",
-                            "root",
-                            "qawzsx351");
+                                                     "root",
+                                                  "qawzsx351");
+                    System.out.println("db접속 성공");
                     if(con != null){
-                        System.out.println("db접속 성공");
                     }
 
                     // db에 쿼리 쏘기
-                    String sql = "SELECT COUNT(*) FROM user WHERE ID='" + user.ID +"' AND PASSWORD='"+user.PASSWORD+"';";
+                    String sql = "";
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery(sql);
 
-                    while (rs.next()){
-                        if(rs.getInt("COUNT(*)")!=1) {
-                            System.out.println("존재하지 않는 ID이거나 비밀번호 오류입니다.");
-                            return;
-                        }
-                    }
-
                     while(rs.next()) {
-                        user.USER_ID = rs.getInt("USER_ID");
                     }
 
-
+                    stmt.close();
+                    con.close();
                 }catch (Exception ex){
                     System.out.println("오류 내역\n"+ex);
                 }
             }
         });
     }
-
     public void Visivle(){
         frame.setVisible(true);
     }
