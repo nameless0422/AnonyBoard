@@ -1,6 +1,8 @@
 package View;
 
 import Controler.MainProcess;
+import Model.BoardModel;
+import Model.ContentsModel;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 
@@ -9,6 +11,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 
 public class ContentsWriteView {
     private JPanel MainPanel;
@@ -92,6 +95,15 @@ public class ContentsWriteView {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Date date_now = new Date(System.currentTimeMillis());
+                SimpleDateFormat fourteen_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                ContentsModel model = new ContentsModel(mainProcess.User.USER_ID,
+                                                        MainProcess.User.PASSWORD,
+                                                        textField1.getText(),
+                                                        textArea1.getText(),
+                                                        fourteen_format.format(date_now),
+                                                        0,0);
                 try {
                     // ssh 터널링
                     JSch jsch = new JSch();
@@ -114,15 +126,21 @@ public class ContentsWriteView {
                     }
 
                     // db에 쿼리 쏘기
-                    String sql = "";
-                    Statement stmt = con.createStatement();
-                    ResultSet rs = stmt.executeQuery(sql);
+                    String sql = "INSERT INTO post (USER_ID,PASSWORD,TITLE,CONTENT,TIME,VIEWS,LIKES) VALUES ("
+                            + "'" + model.User_ID + "',"
+                            + "'" + model.Password + "',"
+                            + "'" + model.Title + "',"
+                            + "'" + model.Content + "',"
+                            + "'" + model.Time + "',"
+                            + model.Views + ","
+                            + model.Likes;
+                    PreparedStatement pstmt = con.prepareStatement(sql);
+                    int r = pstmt.executeUpdate();
+                    System.out.println("변경된 row : " + r);
 
-                    while(rs.next()) {
-                    }
-
-                    stmt.close();
+                    pstmt.close();
                     con.close();
+                    session.disconnect();
                 }catch (Exception ex){
                     System.out.println("오류 내역\n"+ex);
                 }
