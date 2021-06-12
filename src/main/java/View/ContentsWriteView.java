@@ -18,6 +18,8 @@ public class ContentsWriteView {
     private JButton addFileButton;
     private MainProcess mainProcess;
     private JFrame frame;
+    private JFileChooser jfc;
+
     public ContentsWriteView(MainProcess p){
         mainProcess = p;
 
@@ -27,6 +29,8 @@ public class ContentsWriteView {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+
+        jfc = new JFileChooser();
 
         addFileButton.addActionListener(new ActionListener() {
             @Override
