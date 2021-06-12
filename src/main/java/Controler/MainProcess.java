@@ -1,6 +1,7 @@
 package Controler;
 import Model.UserModel;
 import View.ContentsWriteView;
+import View.InBoardListView;
 import View.LoginView;
 
 import View.boardlistView;
@@ -10,6 +11,7 @@ import javax.swing.*;
 public class MainProcess {
     public static LoginView loginView;
     public static ContentsWriteView contentsWriteView;
+    public static InBoardListView inBoardListView;
     public static boardlistView BoardlistView;
     public static UserModel User;
     public static void main(String[] args) {
@@ -17,7 +19,9 @@ public class MainProcess {
         MainProcess mainProcess = new MainProcess();
         loginView = new LoginView(mainProcess);
         contentsWriteView = new ContentsWriteView(mainProcess);
+        inBoardListView = new InBoardListView(mainProcess);
         BoardlistView = new boardlistView(mainProcess);
+        inBoardListView.Visible();
         BoardlistView.Visible();
         loginView.Visivle();
     }
