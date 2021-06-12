@@ -5,6 +5,7 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
@@ -36,7 +37,21 @@ public class ContentsWriteView {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                        "JPG & GIF Images", // 파일 이름에 창에 출력될 문자열
+                        "jpg", "gif"); // 파일 필터로 사용되는 확장자. *.jpg. *.gif만 나열됨
+                jfc.setFileFilter(filter);
 
+                int ret = jfc.showOpenDialog(null);
+                if(ret != JFileChooser.APPROVE_OPTION) { // 사용자가  창을 강제로 닫았거나 취소 버튼을 누른 경우
+                    JOptionPane.showMessageDialog(null,"파일을 선택하지 않았습니다", "경고",
+
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                // 사용자가 파일을 선택하고 "열기" 버튼을 누른 경우
+                String filePath = jfc.getSelectedFile().getPath(); // 파일 경로명을 알아온다.
 
                 try {
                     // ssh 터널링

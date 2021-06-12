@@ -44,7 +44,15 @@ public class LoginView {
         regsterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UserModel user = new UserModel(ID_TEXTFIELD.getText(),Integer.toString(PSWD_TEXTFIELD.getPassword().toString().hashCode() & 0x7fffffff));
+
+                String pw = "";
+                char[] pw_ = PSWD_TEXTFIELD.getPassword();
+                for(char cha: pw_){
+                    Character.toString(cha);
+                    pw+= (pw.equals("")) ? ""+cha+"" : ""+cha+"";
+                }
+
+                UserModel user = new UserModel(ID_TEXTFIELD.getText(),Integer.toString(pw.hashCode() & 0x7fffffff));
                 try {
                     // ssh 터널링
                     JSch jsch = new JSch();
@@ -74,7 +82,8 @@ public class LoginView {
                     // 아이디 중복 체크
                     while(rs.next()) {
                         if(rs.getInt("COUNT(*)")>0) {
-                            System.out.println("중복되는 아이디 입니다.");
+                            JOptionPane.showMessageDialog(null, "중복되는 아이디 입니다.", "오류!", JOptionPane.ERROR_MESSAGE);
+                            session.disconnect();
                             return;
                         }
                     }
@@ -96,6 +105,7 @@ public class LoginView {
                     pstmt.close();
                     stmt.close();
                     con.close();
+                    session.disconnect();
                 mainProcess.User = user;
                 mainProcess.loginView.frame.setVisible(false);
                 }catch (Exception ex){
@@ -108,7 +118,16 @@ public class LoginView {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UserModel user = new UserModel(ID_TEXTFIELD.getText(),Integer.toString(PSWD_TEXTFIELD.getPassword().toString().hashCode() & 0x7fffffff));
+                String pw = "";
+                char[] pw_ = PSWD_TEXTFIELD.getPassword();
+                for(char cha: pw_){
+                    Character.toString(cha);
+                    pw+= (pw.equals("")) ? ""+cha+"" : ""+cha+"";
+                }
+
+
+                UserModel user = new UserModel(ID_TEXTFIELD.getText(),Integer.toString(pw.hashCode() & 0x7fffffff));
+
                 try
                 {
                     // ssh 터널링
@@ -137,16 +156,25 @@ public class LoginView {
                     ResultSet rs = stmt.executeQuery(sql);
 
                     while (rs.next()){
-                        if(rs.getInt("COUNT(*)")!=1) {
-                            System.out.println("존재하지 않는 ID이거나 비밀번호 오류입니다.");
+                        if(rs.getInt("COUNT(*)")<1) {
+                            System.out.println(rs.getInt("COUNT(*)"));
+                            JOptionPane.showMessageDialog(null, "ID가 존재하지 않거나 비밀번호 오류입니다.", "오류!", JOptionPane.ERROR_MESSAGE);
+                            session.disconnect();
                             return;
                         }
                     }
-
+                    stmt.close();
+                    sql = "SELECT * FROM user WHERE ID='" + user.ID +"';";
+                    stmt = con.createStatement();
+                    rs = stmt.executeQuery(sql);
                     while(rs.next()) {
                         user.USER_ID = rs.getInt("USER_ID");
                     }
-
+                    stmt.close();
+                    con.close();
+                    session.disconnect();
+                    mainProcess.User = user;
+                    mainProcess.loginView.frame.setVisible(false);
 
                 }catch (Exception ex){
                     System.out.println("오류 내역\n"+ex);
