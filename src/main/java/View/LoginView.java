@@ -175,7 +175,6 @@ public class LoginView {
                     session.disconnect();
                     mainProcess.User = user;
                     mainProcess.loginView.frame.setVisible(false);
-
                 }catch (Exception ex){
                     System.out.println("오류 내역\n"+ex);
                 }
