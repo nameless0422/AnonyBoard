@@ -99,7 +99,7 @@ public class ContentsWriteView {
                 SimpleDateFormat fourteen_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
                 ContentsModel model = new ContentsModel(mainProcess.User.USER_ID,
-                                                        MainProcess.User.PASSWORD,
+                                                        mainProcess.User.PASSWORD,
                                                         textField1.getText(),
                                                         textArea1.getText(),
                                                         fourteen_format.format(date_now),
@@ -125,25 +125,32 @@ public class ContentsWriteView {
                     if(con != null){
                     }
 
-                    // db에 쿼리 쏘기
-                    String sql = "INSERT INTO post (USER_ID,PASSWORD,TITLE,CONTENT,TIME,VIEWS,LIKES) VALUES ("
-                            + "'" + model.User_ID + "',"
-                            + "'" + model.Password + "',"
-                            + "'" + model.Title + "',"
-                            + "'" + model.Content + "',"
-                            + "'" + model.Time + "',"
-                            + model.Views + ","
-                            + model.Likes;
-                    PreparedStatement pstmt = con.prepareStatement(sql);
-                    int r = pstmt.executeUpdate();
-                    System.out.println("변경된 row : " + r);
+                    try {
+                        // db에 쿼리 쏘기
+                        String sql = "INSERT INTO post (USER_ID,PASSWORD,TITLE,CONTENT,TIME,VIEWS,LIKES) VALUES ("
+                                + "'" + model.User_ID + "',"
+                                + "'" + model.Password + "',"
+                                + "'" + model.Title + "',"
+                                + "'" + model.Content + "',"
+                                + "'" + model.Time + "',"
+                                + model.Views + ","
+                                + model.Likes + ")";
+                        PreparedStatement pstmt = con.prepareStatement(sql);
+                        int r = pstmt.executeUpdate();
+                        System.out.println("변경된 row : " + r);
 
-                    pstmt.close();
+                        pstmt.close();
+                    }catch (Exception ex){
+                        System.out.println("오류 내역\n"+ex);
+                        con.close();
+                        session.disconnect();
+                    }
                     con.close();
                     session.disconnect();
                 }catch (Exception ex){
                     System.out.println("오류 내역\n"+ex);
                 }
+                frame.setVisible(false);
             }
         });
     }
