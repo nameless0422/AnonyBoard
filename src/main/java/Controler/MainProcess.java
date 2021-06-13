@@ -1,17 +1,16 @@
 package Controler;
 import Model.UserModel;
 import View.ContentsWriteView;
-import View.InBoardListView;
 import View.LoginView;
 
 import View.boardlistView;
+import View.produceView;
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import javax.swing.*;
 
 public class MainProcess {
     public static LoginView loginView;
     public static ContentsWriteView contentsWriteView;
-    public static InBoardListView inBoardListView;
+    public static produceView ProduceView;
     public static boardlistView BoardlistView;
     public static UserModel User;
     public static void main(String[] args) {
@@ -19,10 +18,10 @@ public class MainProcess {
         MainProcess mainProcess = new MainProcess();
         loginView = new LoginView(mainProcess);
         contentsWriteView = new ContentsWriteView(mainProcess);
-        inBoardListView = new InBoardListView(mainProcess);
         BoardlistView = new boardlistView(mainProcess);
-        inBoardListView.Visible();
+        ProduceView = new produceView(mainProcess);
         BoardlistView.Visible();
         loginView.Visivle();
+        ProduceView.Visible();
     }
 }
