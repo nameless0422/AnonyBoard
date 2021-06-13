@@ -12,11 +12,7 @@ public class InBoardListView {
     private JLabel infor;
     private MainProcess mainProcess;
     private JFrame frame;
-    private JPanel panel;
-    private JButton Button1;
-    private JLabel hiLabel;
-    private JLabel makeLabel;
-    private JTable table1;
+    private JPanel panel1;
 
     public InBoardListView(MainProcess p){
         mainProcess = p;
