@@ -14,6 +14,9 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 
 public class ContentsWriteView {
+
+    private ContentsModel model;
+
     private JPanel MainPanel;
     private JTextArea textArea1;
     private JTextField textField1;
@@ -98,12 +101,6 @@ public class ContentsWriteView {
                 Date date_now = new Date(System.currentTimeMillis());
                 SimpleDateFormat fourteen_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-                ContentsModel model = new ContentsModel(mainProcess.User.USER_ID,
-                                                        mainProcess.User.PASSWORD,
-                                                        textField1.getText(),
-                                                        textArea1.getText(),
-                                                        fourteen_format.format(date_now),
-                                                        0,0);
                 try {
                     // ssh 터널링
                     JSch jsch = new JSch();
@@ -154,6 +151,15 @@ public class ContentsWriteView {
             }
         });
     }
+
+    public void setModel(ContentsModel model) {
+        this.model = model;
+    }
+
+    public ContentsModel getModel() {
+        return model;
+    }
+
     public void Visivle(){
         frame.setVisible(true);
     }
