@@ -7,13 +7,16 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class InBoardListView {
-    private JButton WriteBtn;
     private JScrollPane scrollPane;
-    private JTable table1;
     private JPanel IBL;
     private JLabel infor;
     private MainProcess mainProcess;
     private JFrame frame;
+    private JPanel panel;
+    private JButton Button1;
+    private JLabel hiLabel;
+    private JLabel makeLabel;
+    private JTable table1;
 
     public InBoardListView(MainProcess p){
         mainProcess = p;
@@ -22,10 +25,10 @@ public class InBoardListView {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         String[][] content = new String[20][4];
         String header[] = {"제목", "시간", "조회수", "추천수"};
-        frame.add(scrollPane);
-        frame.pack();
-        frame.setResizable(false);
-        frame.setVisible(true);
+//        frame.add(scrollPane);
+//        frame.pack();
+//        frame.setResizable(false);
+//        frame.setVisible(true);
 
         //table = new JTable(content, header);
         //scrollPane = new JScrollBar(table);
