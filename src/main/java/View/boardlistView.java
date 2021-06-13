@@ -33,7 +33,6 @@ public class boardlistView {
                 String header[] = {"강의명","분반","교수명"};
                 String contents[][] = {{"Java프로그래밍","3","양재동"},{"윈도우즈프로그래밍","3","박현주"}};
                 table1 = new JTable(contents, header);
-                frame.setContentPane(panel);
             }
         });
     }
