@@ -38,6 +38,7 @@ public class boardlistView {
     }
 
     public void Visible(){
+        hiLabel.setText("반갑습니다! " + mainProcess.User.ID + "님.");
         frame.setVisible(true);
     }
 }
