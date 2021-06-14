@@ -10,6 +10,7 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
+import javax.management.modelmbean.ModelMBean;
 import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -226,6 +227,177 @@ public class DBConnecter {
         return model;
     }
 
+    public static void DeleteContent(int conIDX, UserModel U){
+        try {
+            // ssh 터널링
+            JSch jsch = new JSch();
+            Session session = jsch.getSession("root", "106.10.57.242", 5000);
+            session.setPassword("qawzsx351");
+            session.setConfig("StrictHostKeyChecking","no");
+            session.connect();
+
+            // 포트포워딩
+            int assinged_port = session.setPortForwardingL(8001,"localhost",3306);
+            System.out.println("localhost:"+assinged_port+" -> "+3306+":"+8001);
+            Connection con = null;
+            String driver = "org.mariadb.jdbc.Driver";
+            Class.forName(driver);
+            con = DriverManager.getConnection("jdbc:mariadb://localhost:8001/anonyBoard",
+                    "root",
+                    "qawzsx351");
+            System.out.println("db접속 성공");
+            if(con != null){
+            }
+
+            // db에 쿼리 쏘기
+            String sql = "DELETE TABLE post WHERE idx=" + conIDX +" AND USER_ID=" + U.USER_ID + " AND PASSWORD='" + U.PASSWORD + "'";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            int r = pstmt.executeUpdate();
+            System.out.println("변경된 row : " + r);
+            pstmt.close();
+
+            con.close();
+            session.disconnect();
+        }catch (Exception ex){
+            System.out.println("오류 내역\n"+ex);
+        }
+    }
+
+    public static ContentsModel UpdateContent(ContentsModel model){
+        try {
+            // ssh 터널링
+            JSch jsch = new JSch();
+            Session session = jsch.getSession("root", "106.10.57.242", 5000);
+            session.setPassword("qawzsx351");
+            session.setConfig("StrictHostKeyChecking","no");
+            session.connect();
+
+            // 포트포워딩
+            int assinged_port = session.setPortForwardingL(8001,"localhost",3306);
+            System.out.println("localhost:"+assinged_port+" -> "+3306+":"+8001);
+            Connection con = null;
+            String driver = "org.mariadb.jdbc.Driver";
+            Class.forName(driver);
+            con = DriverManager.getConnection("jdbc:mariadb://localhost:8001/anonyBoard",
+                    "root",
+                    "qawzsx351");
+            System.out.println("db접속 성공");
+            if(con != null){
+            }
+
+            // db에 쿼리 쏘기
+            String sql = "UPDATE post SET TITLE=?, CONTENT=?, TIME=?, VIEWS=?, LIKES=? WHERE idx=?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, model.Title);
+            pstmt.setString(2, model.Content);
+            pstmt.setString(3, model.Time);
+            pstmt.setString(4, Integer.toString(model.Views));
+            pstmt.setString(5, Integer.toString(model.Likes));
+            pstmt.setString(6, Integer.toString(model.getIdx()));
+
+            int r = pstmt.executeUpdate();
+            System.out.println("변경된 row : " + r);
+            pstmt.close();
+            con.close();
+            session.disconnect();
+        }catch (Exception ex){
+            System.out.println("오류 내역\n"+ex);
+        }
+
+        return model;
+    }
+
+    public static void AddViews(int conIDX){
+        try {
+            // ssh 터널링
+            JSch jsch = new JSch();
+            Session session = jsch.getSession("root", "106.10.57.242", 5000);
+            session.setPassword("qawzsx351");
+            session.setConfig("StrictHostKeyChecking","no");
+            session.connect();
+
+            // 포트포워딩
+            int assinged_port = session.setPortForwardingL(8001,"localhost",3306);
+            System.out.println("localhost:"+assinged_port+" -> "+3306+":"+8001);
+            Connection con = null;
+            String driver = "org.mariadb.jdbc.Driver";
+            Class.forName(driver);
+            con = DriverManager.getConnection("jdbc:mariadb://localhost:8001/anonyBoard",
+                    "root",
+                    "qawzsx351");
+            System.out.println("db접속 성공");
+            if(con != null){
+            }
+            int View = 0;
+            // db에 쿼리 쏘기
+            String sql = "SELECT * FROM post WHERE idx=" + conIDX;
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()){
+                View = rs.getInt("VIEWS");
+            }
+            View = View + 1;
+            stmt.close();
+            sql = "UPDATE post SET VIEWS=? WHERE idx=?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, Integer.toString(View));
+            pstmt.setString(2, Integer.toString(conIDX));
+            int r = pstmt.executeUpdate();
+            System.out.println("변경된 row : " + r);
+            pstmt.close();
+            con.close();
+            session.disconnect();
+        }catch (Exception ex){
+            System.out.println("오류 내역\n"+ex);
+        }
+    }
+
+    public static void AddLikes(int conIDX){
+        try {
+            // ssh 터널링
+            JSch jsch = new JSch();
+            Session session = jsch.getSession("root", "106.10.57.242", 5000);
+            session.setPassword("qawzsx351");
+            session.setConfig("StrictHostKeyChecking","no");
+            session.connect();
+
+            // 포트포워딩
+            int assinged_port = session.setPortForwardingL(8001,"localhost",3306);
+            System.out.println("localhost:"+assinged_port+" -> "+3306+":"+8001);
+            Connection con = null;
+            String driver = "org.mariadb.jdbc.Driver";
+            Class.forName(driver);
+            con = DriverManager.getConnection("jdbc:mariadb://localhost:8001/anonyBoard",
+                    "root",
+                    "qawzsx351");
+            System.out.println("db접속 성공");
+            if(con != null){
+            }
+            int Like = 0;
+            // db에 쿼리 쏘기
+            String sql = "SELECT * FROM post WHERE idx=" + conIDX;
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()){
+                Like = rs.getInt("VIEWS");
+            }
+            Like = Like + 1;
+            stmt.close();
+            sql = "UPDATE post SET LIKES=? WHERE idx=?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, Integer.toString(Like));
+            pstmt.setString(2, Integer.toString(conIDX));
+            int r = pstmt.executeUpdate();
+            System.out.println("변경된 row : " + r);
+            pstmt.close();
+            con.close();
+
+            session.disconnect();
+        }catch (Exception ex){
+            System.out.println("오류 내역\n"+ex);
+        }
+    }
+
     public static List<ReplyModel> getReplyList(int conIDX){
         ArrayList<ReplyModel> list = new ArrayList<ReplyModel>();
         try {
@@ -330,5 +502,41 @@ public class DBConnecter {
         }
 
         return model;
+    }
+
+    public static void DeleteReply(int reIDX, UserModel U){
+        try {
+            // ssh 터널링
+            JSch jsch = new JSch();
+            Session session = jsch.getSession("root", "106.10.57.242", 5000);
+            session.setPassword("qawzsx351");
+            session.setConfig("StrictHostKeyChecking","no");
+            session.connect();
+
+            // 포트포워딩
+            int assinged_port = session.setPortForwardingL(8001,"localhost",3306);
+            System.out.println("localhost:"+assinged_port+" -> "+3306+":"+8001);
+            Connection con = null;
+            String driver = "org.mariadb.jdbc.Driver";
+            Class.forName(driver);
+            con = DriverManager.getConnection("jdbc:mariadb://localhost:8001/anonyBoard",
+                    "root",
+                    "qawzsx351");
+            System.out.println("db접속 성공");
+            if(con != null){
+            }
+
+            // db에 쿼리 쏘기
+            String sql = "DELETE TABLE reply WHERE idx=" + reIDX +" AND USER_ID=" + U.USER_ID + " AND PASSWORD='" + U.PASSWORD + "'";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            int r = pstmt.executeUpdate();
+            System.out.println("변경된 row : " + r);
+            pstmt.close();
+
+            con.close();
+            session.disconnect();
+        }catch (Exception ex){
+            System.out.println("오류 내역\n"+ex);
+        }
     }
 }
