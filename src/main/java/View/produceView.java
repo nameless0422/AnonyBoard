@@ -35,9 +35,8 @@ public class produceView {
         s2.setViewportView(comboBox2);
         s3.setViewportView(comboBox3);
         Button1.addActionListener(new ActionListener() {
-            BoardModel bm = new BoardModel(comboBox1.getSelectedItem().toString(),comboBox2.getSelectedIndex(), comboBox3.getSelectedItem().toString());
-
             public void actionPerformed(ActionEvent e) {
+                BoardModel bm = new BoardModel(comboBox1.getSelectedItem().toString(),comboBox2.getSelectedIndex(), comboBox3.getSelectedItem().toString());
                 mainProcess.produceView.frame.setVisible(false);
             }
         });
