@@ -1,10 +1,7 @@
 package Controler;
 import Model.UserModel;
-import View.ContentsWriteView;
-import View.LoginView;
+import View.*;
 
-import View.boardlistView;
-import View.produceView;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 
 public class MainProcess {
@@ -12,6 +9,7 @@ public class MainProcess {
     public static ContentsWriteView contentsWriteView;
     public static produceView ProduceView;
     public static boardlistView BoardlistView;
+    public static InBoardlistView InBoardlistView;
     public static UserModel User;
     public static void main(String[] args) {
         FlatIntelliJLaf.install();
@@ -19,9 +17,8 @@ public class MainProcess {
         loginView = new LoginView(mainProcess);
         contentsWriteView = new ContentsWriteView(mainProcess);
         BoardlistView = new boardlistView(mainProcess);
+        InBoardlistView = new InBoardlistView(mainProcess);
         ProduceView = new produceView(mainProcess);
-        BoardlistView.Visible();
         loginView.Visivle();
-        ProduceView.Visible();
     }
 }
