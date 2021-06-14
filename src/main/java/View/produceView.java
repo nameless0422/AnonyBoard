@@ -27,7 +27,7 @@ public class produceView {
         Button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                mainProcess.produceView.frame.setVisible(false);
             }
         });
 

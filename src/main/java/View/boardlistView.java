@@ -28,6 +28,12 @@ public class boardlistView {
         frame.pack();
         JTable table1 = createTable();
         tablescroll.setViewportView(table1);
+        Button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainProcess.produceView.Visible();
+            }
+        });
     }
     public static JTable createTable() {
         String[] columnNames = {"강의명", "분반" ,"교수명"};
