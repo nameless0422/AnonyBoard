@@ -2,6 +2,7 @@ package Classes;
 
 import Model.BoardModel;
 import Model.ContentsModel;
+import Model.ReplyModel;
 import Model.UserModel;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
@@ -207,6 +208,112 @@ public class DBConnecter {
                     + "' AND TITLE='"
                     + model.Title
                     +"' AND TIME='"
+                    + model.Time
+                    + "'";
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()){
+                model.setIdx(rs.getInt("idx"));
+            }
+            stmt.close();
+            rs.close();
+            con.close();
+            session.disconnect();
+        }catch (Exception ex){
+            System.out.println("오류 내역\n"+ex);
+        }
+
+        return model;
+    }
+
+    public static List<ReplyModel> getReplyList(int conIDX){
+        ArrayList<ReplyModel> list = new ArrayList<ReplyModel>();
+        try {
+            // ssh 터널링
+            JSch jsch = new JSch();
+            Session session = jsch.getSession("root", "106.10.57.242", 5000);
+            session.setPassword("qawzsx351");
+            session.setConfig("StrictHostKeyChecking","no");
+            session.connect();
+
+            // 포트포워딩
+            int assinged_port = session.setPortForwardingL(8001,"localhost",3306);
+            System.out.println("localhost:"+assinged_port+" -> "+3306+":"+8001);
+            Connection con = null;
+            String driver = "org.mariadb.jdbc.Driver";
+            Class.forName(driver);
+            con = DriverManager.getConnection("jdbc:mariadb://localhost:8001/anonyBoard",
+                    "root",
+                    "qawzsx351");
+            System.out.println("db접속 성공");
+            if(con != null){
+            }
+
+            // db에 쿼리 쏘기
+            String sql = "SELECT *  FROM reply WHERE CON_NUM=" + conIDX;
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()){
+                ReplyModel model = new ReplyModel(
+                        rs.getInt("CON_NUM"),
+                        rs.getInt("USER_ID"),
+                        rs.getString("PASSWORD"),
+                        rs.getString("CONTENT"),
+                        rs.getString("TIME")
+                );
+                model.setIdx(rs.getInt("idx"));
+                list.add(model);
+            }
+            stmt.close();
+            rs.close();
+            con.close();
+            session.disconnect();
+        }catch (Exception ex){
+            System.out.println("오류 내역\n"+ex);
+        }
+        return list;
+    }
+
+    public static ReplyModel AddNewReply(ReplyModel model){
+        try {
+            // ssh 터널링
+            JSch jsch = new JSch();
+            Session session = jsch.getSession("root", "106.10.57.242", 5000);
+            session.setPassword("qawzsx351");
+            session.setConfig("StrictHostKeyChecking","no");
+            session.connect();
+
+            // 포트포워딩
+            int assinged_port = session.setPortForwardingL(8001,"localhost",3306);
+            System.out.println("localhost:"+assinged_port+" -> "+3306+":"+8001);
+            Connection con = null;
+            String driver = "org.mariadb.jdbc.Driver";
+            Class.forName(driver);
+            con = DriverManager.getConnection("jdbc:mariadb://localhost:8001/anonyBoard",
+                    "root",
+                    "qawzsx351");
+            System.out.println("db접속 성공");
+            if(con != null){
+            }
+
+            // db에 쿼리 쏘기
+            String sql = "INSERT into reply(CON_NUM,USER_ID,PASSWORD,CONTENT,TIME) values (?,?,?,?,?)";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, Integer.toString(model.Con_Num));
+            pstmt.setString(2, Integer.toString(model.User_ID));
+            pstmt.setString(3, model.Password);
+            pstmt.setString(4, model.Content);
+            pstmt.setString(5, model.Time);
+
+            int r = pstmt.executeUpdate();
+            System.out.println("변경된 row : " + r);
+            pstmt.close();
+
+            sql = "SELECT * FROM reply WHERE CON_NUM="
+                    + model.Con_Num
+                    + " AND USER_ID="
+                    + model.User_ID
+                    + " AND TIME='"
                     + model.Time
                     + "'";
             Statement stmt = con.createStatement();
