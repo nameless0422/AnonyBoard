@@ -1,12 +1,15 @@
 package View;
 
+import Classes.DBConnecter;
 import Controler.MainProcess;
+import Model.BoardModel;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 
 public class boardlistView {
@@ -28,7 +31,7 @@ public class boardlistView {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        JTable table1 = createTable();
+        JTable table1 = createTable(0);
         tablescroll.setViewportView(table1);
         table1.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
@@ -45,14 +48,26 @@ public class boardlistView {
             }
         });
     }
-    public static JTable createTable() {
+    public static JTable createTable(int k) {
         String[] columnNames = {"강의명", "분반" ,"교수명"};
-        Object[][] data = {{"자바", "3","양재동" },{"윈프", "2", "박현주"}};
-        JTable table1 = new JTable(data, columnNames);
-        table1.setFillsViewportHeight(true);
-
+        List<BoardModel> list = DBConnecter.getBoardList();
+        Object[][] data = new Object[20][20];
+        for(int i = 0;i< list.size();i++) {
+            BoardModel model = list.get(i);
+            for (int j = 0; j < 3; j++) {
+                if (j == 0) {
+                    data[i][j] = model.ClassName;
+                } else if (j == 1) {
+                    data[i][j] = model.Class;
+                } else {
+                    data[i][j] = model.Prof_Name;
+                }
+            }
+        }
+        JTable table1 = new JTable(data,columnNames);
         return table1;
     }
+
     public void Visible(){
         hiLabel.setText("반갑습니다! " + mainProcess.User.ID + "님.");
         frame.setVisible(true);

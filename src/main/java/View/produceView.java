@@ -1,5 +1,6 @@
 package View;
 
+import Classes.DBConnecter;
 import Controler.MainProcess;
 import Model.BoardModel;
 
@@ -36,8 +37,10 @@ public class produceView {
         s3.setViewportView(comboBox3);
         Button1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                BoardModel bm = new BoardModel(comboBox1.getSelectedItem().toString(),comboBox2.getSelectedIndex(), comboBox3.getSelectedItem().toString());
+                BoardModel bm = new BoardModel(comboBox1.getSelectedItem().toString(),comboBox2.getSelectedIndex()+1, comboBox3.getSelectedItem().toString());
+                bm = DBConnecter.AddNewBoard(bm);
                 mainProcess.ProduceView.frame.setVisible(false);
+                mainProcess.BoardlistView.Visible();
             }
         });
 
