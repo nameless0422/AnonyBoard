@@ -8,38 +8,38 @@ import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class InBoardListView {
-    DefaultTableModel model;
+    public JComponent frame;
+    //DefaultTableModel model;
     private MainProcess mainProcess;
-    private JScrollPane scrollPane;
-    private JPanel IBL;
-    private JLabel infor;
-    private JFrame frame;
-    private JPanel panel1;
-    private JPanel panel;
     private JButton Button1;
+    private JPanel panel;
     private JLabel subLabel;
     private JLabel makeLabel;
-    private JTable table1;
+    private JScrollPane scrollPane;
+    private JFrame frame1;
 
     public InBoardListView(MainProcess p) {
         mainProcess = p;
-        frame = new JFrame();
-        frame.setSize(585, 415);
-        frame.setContentPane(panel);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        scrollPane = new JScrollPane(table1);
-        frame.pack();
-        final JTable[] table1 = {new JTable(model)};
-        table1[0].setModel(model);
-        scrollPane = new JScrollPane(table1[0]);
+        frame1 = new JFrame();
+        frame1.setSize(585, 415);
+        frame1.setContentPane(panel);
+        frame1.setResizable(false);
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame1.pack();
+        JTable table1 = createTable();
+        scrollPane.setViewportView(table1);
 
-        frame.setVisible(true);
+        Button1.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                mainProcess.contentsWriteView.Visivle();
+                mainProcess.InBoardlistView.frame.setVisible(false);
+            }
+        });
     }
 
     public static JTable createTable(){
         String[] columnNames = {"제목", "시간", "조회수", "추천수"};
-        Object[][] data = {{}};
+        Object[][] data = {{"어쩌고","13:12","21","3"},{"저쩌고","15:23","5","1"}};
         JTable table1 = new JTable(data, columnNames);
         table1.setFillsViewportHeight(true);
 
@@ -47,6 +47,7 @@ public class InBoardListView {
     }
 
     public void Visible() {
-        frame.setVisible(true);
+//        subLabel.setText("" + mainProcess.User.ID + "님.");
+        frame1.setVisible(true);
     }
 }

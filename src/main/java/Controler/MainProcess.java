@@ -21,6 +21,7 @@ public class MainProcess {
         BoardlistView = new boardlistView(mainProcess);
         InBoardlistView = new InBoardListView(mainProcess);
         ProduceView = new produceView(mainProcess);
+        InBoardlistView.Visible();
         loginView.Visivle();
     }
 }
