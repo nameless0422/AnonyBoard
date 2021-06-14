@@ -108,13 +108,13 @@ public class LoginView {
                     session.disconnect();
                 mainProcess.User = user;
                 mainProcess.loginView.frame.setVisible(false);
+                mainProcess.BoardlistView.Visible();
                 }catch (Exception ex){
                     System.out.println("오류 내역\n"+ex);
                 }
             }
         });
 
-        // todo : 로그인 기능 구현
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -175,6 +175,7 @@ public class LoginView {
                     session.disconnect();
                     mainProcess.User = user;
                     mainProcess.loginView.frame.setVisible(false);
+                    mainProcess.BoardlistView.Visible();
                 }catch (Exception ex){
                     System.out.println("오류 내역\n"+ex);
                 }
