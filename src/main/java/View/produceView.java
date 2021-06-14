@@ -37,7 +37,7 @@ public class produceView {
         Button1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 BoardModel bm = new BoardModel(comboBox1.getSelectedItem().toString(),comboBox2.getSelectedIndex(), comboBox3.getSelectedItem().toString());
-                mainProcess.produceView.frame.setVisible(false);
+                mainProcess.ProduceView.frame.setVisible(false);
             }
         });
 

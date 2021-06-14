@@ -41,7 +41,7 @@ public class boardlistView {
         Button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainProcess.produceView.Visible();
+                mainProcess.ProduceView.Visible();
             }
         });
     }
