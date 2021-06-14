@@ -3,6 +3,8 @@ package View;
 import Controler.MainProcess;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -28,6 +30,14 @@ public class boardlistView {
         frame.pack();
         JTable table1 = createTable();
         tablescroll.setViewportView(table1);
+        table1.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                // do some actions here, for example
+                // print first column value from selected row
+                mainProcess.BoardlistView.frame.setVisible(false);
+                mainProcess.InBoardlistView.Visible();
+            }
+        });
         Button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
