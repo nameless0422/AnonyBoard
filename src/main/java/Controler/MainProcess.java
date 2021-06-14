@@ -7,10 +7,11 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 public class MainProcess {
     public static LoginView loginView;
     public static ContentsWriteView contentsWriteView;
-    public static produceView ProduceView;
+    public static produceView produceView;
     public static boardlistView BoardlistView;
     public static InBoardlistView InBoardlistView;
     public static UserModel User;
+
     public static void main(String[] args) {
         FlatIntelliJLaf.install();
         MainProcess mainProcess = new MainProcess();
@@ -18,7 +19,7 @@ public class MainProcess {
         contentsWriteView = new ContentsWriteView(mainProcess);
         BoardlistView = new boardlistView(mainProcess);
         InBoardlistView = new InBoardlistView(mainProcess);
-        ProduceView = new produceView(mainProcess);
+        produceView = new produceView(mainProcess);
         loginView.Visivle();
     }
 }
