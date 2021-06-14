@@ -5,11 +5,9 @@ import Controler.MainProcess;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.table.DefaultTableModel;
 
 public class InBoardListView {
     public JComponent frame;
-    //DefaultTableModel model;
     private MainProcess mainProcess;
     private JButton Button1;
     private JPanel panel;
@@ -32,7 +30,7 @@ public class InBoardListView {
         Button1.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 mainProcess.contentsWriteView.Visivle();
-                mainProcess.InBoardlistView.frame.setVisible(false);
+                mainProcess.InBoardlistView.frame1.setVisible(false);
             }
         });
     }
