@@ -9,6 +9,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class produceView {
     private JPanel panel1;
@@ -24,12 +25,12 @@ public class produceView {
         mainProcess = p;
         frame = new JFrame();
         String menu1[] = {"자바","윈프","이산수학"};
-        String menu3[] = {"양재동","박현주","이횽태"};
+        String menu3[] = {"양재동","박현주","이형태"};
         String menu2[] = {"1","2","3"};
         frame.setContentPane(panel1);
         frame.setSize(800, 600);
         frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         JComboBox comboBox1 = createBox(menu1);
         JComboBox comboBox2 = createBox(menu2);
@@ -39,7 +40,16 @@ public class produceView {
         s3.setViewportView(comboBox3);
         Button1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                List<BoardModel> list = DBConnecter.getBoardList();
                 BoardModel bm = new BoardModel(comboBox1.getSelectedItem().toString(),comboBox2.getSelectedIndex()+1, comboBox3.getSelectedItem().toString());
+
+                for(int i =0;i<list.size();i++){
+                    BoardModel model = list.get(i);
+                    if(bm.Class == model.Class && bm.ClassName.equals(model.ClassName) && bm.Prof_Name.equals(model.Prof_Name)){
+                        JOptionPane.showMessageDialog(null, "중복되는 강의입니다.", "오류!", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
                 bm = DBConnecter.AddNewBoard(bm);
                 mainProcess.ProduceView.frame.setVisible(false);
                 mainProcess.BoardlistView.setTable1(boardlistView.createTable(0));
@@ -48,7 +58,6 @@ public class produceView {
                     public void valueChanged(ListSelectionEvent event) {
                         // do some actions here, for example
                         // print first column value from selected row
-                        mainProcess.BoardlistView.getFrame().setVisible(false);
                         mainProcess.InBoardlistView.Visible();
                     }
                 });

@@ -12,17 +12,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
-
 public class boardlistView {
-
-
+    private JFrame frame;
     private JButton Button1;
     private MainProcess mainProcess;
     private JPanel panel;
     private JLabel hiLabel;
     private JLabel makeLabel;
     private JScrollPane tablescroll;
-    private JFrame frame;
     private static JTable table1;
 
     public boardlistView(MainProcess p) {
@@ -31,7 +28,7 @@ public class boardlistView {
         frame.setContentPane(panel);
         frame.setSize(800, 600);
         frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         table1 = createTable(0);
         table1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -47,6 +44,13 @@ public class boardlistView {
                 mainProcess.ProduceView.Visible();
             }
         });
+    }
+    public static int classidx(){
+        JTable table = boardlistView.getTable1();
+        List<BoardModel> list = DBConnecter.getBoardList();
+        int i = table.getSelectedRow();
+        BoardModel model = list.get(i);
+        return model.getIdx();
     }
     public static JTable createTable(int k) {
         String[] columnNames = {"강의명", "분반" ,"교수명"};
