@@ -9,6 +9,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 
@@ -22,7 +23,7 @@ public class boardlistView {
     private JLabel makeLabel;
     private JScrollPane tablescroll;
     private JFrame frame;
-    private JTable table1;
+    private static JTable table1;
 
     public boardlistView(MainProcess p) {
         mainProcess = p;
@@ -33,15 +34,13 @@ public class boardlistView {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         table1 = createTable(0);
-        tablescroll.setViewportView(table1);
-        table1.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event) {
-                // do some actions here, for example
-                // print first column value from selected row
-                mainProcess.BoardlistView.frame.setVisible(false);
+        table1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mainProcess.InBoardlistView.Visible();
             }
         });
+        tablescroll.setViewportView(table1);
         Button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,7 +72,7 @@ public class boardlistView {
         this.table1 = table1;
     }
 
-    public JTable getTable1() {
+    public static JTable getTable1() {
         return table1;
     }
 

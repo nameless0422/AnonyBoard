@@ -1,10 +1,13 @@
 package View;
 
+import Classes.DBConnecter;
 import Controler.MainProcess;
+import Model.BoardModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class InBoardListView {
     public JComponent frame;
@@ -34,7 +37,27 @@ public class InBoardListView {
             }
         });
     }
-
+    public static String classname(){
+        JTable table = boardlistView.getTable1();
+        List<BoardModel> list = DBConnecter.getBoardList();
+        int i = table.getSelectedColumn();
+        BoardModel model = list.get(i);
+        return model.ClassName;
+    }
+    public static int classnum(){
+        JTable table = boardlistView.getTable1();
+        List<BoardModel> list = DBConnecter.getBoardList();
+        int i = table.getSelectedColumn();
+        BoardModel model = list.get(i);
+        return model.Class;
+    }
+    public static String prname(){
+        JTable table = boardlistView.getTable1();
+        List<BoardModel> list = DBConnecter.getBoardList();
+        int i = table.getSelectedColumn();
+        BoardModel model = list.get(i);
+        return model.Prof_Name;
+    }
     public static JTable createTable(){
         String[] columnNames = {"제목", "시간", "조회수", "추천수"};
         Object[][] data = {{"어쩌고","13:12","21","3"},{"저쩌고","15:23","5","1"}};
@@ -45,7 +68,7 @@ public class InBoardListView {
     }
 
     public void Visible() {
-//        subLabel.setText("" + mainProcess.User.ID + "님.");
+        subLabel.setText(classname()+classnum()+prname());
         frame1.setVisible(true);
     }
 }
