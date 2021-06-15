@@ -137,7 +137,7 @@ public class DBConnecter {
             }
 
             // db에 쿼리 쏘기
-            String sql = "SELECT *  FROM post WHERE BOARD_IDX=" + boardIDX;
+            String sql = "SELECT * FROM post WHERE BOARD_IDX=" + boardIDX;
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()){

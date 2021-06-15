@@ -36,6 +36,7 @@ public class InBoardListView {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mainProcess.contentsReadView.Visivle();
+
             }
         });
         scrollPane.setViewportView(table1);

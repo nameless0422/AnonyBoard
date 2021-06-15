@@ -19,7 +19,6 @@ public class MainProcess {
         loginView = new LoginView(mainProcess);
         contentsWriteView = new ContentsWriteView(mainProcess);
         BoardlistView = new boardlistView(mainProcess);
-        InBoardlistView = new InBoardListView(mainProcess);
         ProduceView = new produceView(mainProcess);
         loginView.Visivle();
     }

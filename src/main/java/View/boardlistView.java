@@ -36,8 +36,8 @@ public class boardlistView {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 InBoardListView.setBoardidx(classidx());
+                mainProcess.InBoardlistView = new InBoardListView(mainProcess);
                 mainProcess.InBoardlistView.Visible();
-
             }
         });
         tablescroll.setViewportView(table1);
@@ -56,7 +56,7 @@ public class boardlistView {
         return model.getIdx();
     }
     public static JTable createTable() {
-        String[] columnNames = {"강의명", "분반" ,"교수명"};
+        String[] columnNames = {"강의명", "분반" , "교수명"};
         List<BoardModel> list = DBConnecter.getBoardList();
         Object[][] data = new Object[20][20];
         for(int i = 0;i< list.size();i++) {
