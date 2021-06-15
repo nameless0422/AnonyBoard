@@ -52,7 +52,7 @@ public class produceView {
                 }
                 bm = DBConnecter.AddNewBoard(bm);
                 mainProcess.ProduceView.frame.setVisible(false);
-                mainProcess.BoardlistView.setTable1(boardlistView.createTable(0));
+                mainProcess.BoardlistView.setTable1(boardlistView.createTable());
                 mainProcess.BoardlistView.getTablescroll().setViewportView(mainProcess.BoardlistView.getTable1());
                 mainProcess.BoardlistView.getTable1().getSelectionModel().addListSelectionListener(new ListSelectionListener(){
                     public void valueChanged(ListSelectionEvent event) {

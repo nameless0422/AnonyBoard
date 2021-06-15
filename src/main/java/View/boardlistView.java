@@ -3,6 +3,7 @@ package View;
 import Classes.DBConnecter;
 import Controler.MainProcess;
 import Model.BoardModel;
+import Model.ContentsModel;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -30,11 +31,13 @@ public class boardlistView {
         frame.setResizable(false);
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        table1 = createTable(0);
+        table1 = createTable();
         table1.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                InBoardListView.setBoardidx(classidx());
                 mainProcess.InBoardlistView.Visible();
+
             }
         });
         tablescroll.setViewportView(table1);
@@ -52,7 +55,7 @@ public class boardlistView {
         BoardModel model = list.get(i);
         return model.getIdx();
     }
-    public static JTable createTable(int k) {
+    public static JTable createTable() {
         String[] columnNames = {"강의명", "분반" ,"교수명"};
         List<BoardModel> list = DBConnecter.getBoardList();
         Object[][] data = new Object[20][20];

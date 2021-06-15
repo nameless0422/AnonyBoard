@@ -3,10 +3,12 @@ package View;
 import Classes.DBConnecter;
 import Controler.MainProcess;
 import Model.BoardModel;
+import Model.ContentsModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class InBoardListView {
@@ -19,6 +21,8 @@ public class InBoardListView {
     private JLabel makeLabel;
     private JScrollPane scrollPane;
     private static JTable table1;
+    private static int[] Boardidx = new int[1];
+    private static ArrayList<ContentsModel> models;
 
     public InBoardListView(MainProcess p) {
         mainProcess = p;
@@ -62,17 +66,46 @@ public class InBoardListView {
         BoardModel model = list.get(i);
         return model.Prof_Name;
     }
-    public static JTable createTable(){
-        String[] columnNames = {"제목", "시간", "조회수", "추천수"};
-        Object[][] data = {{"어쩌고","13:12","21","3"},{"저쩌고","15:23","5","1"}};
-        JTable table1 = new JTable(data, columnNames);
-        table1.setFillsViewportHeight(true);
+    public static JTable createTable() {
+        String[] columnNames = {"제목", "시간" ,"조회수","추천수"};
+        List<ContentsModel> list = DBConnecter.getContentList(Boardidx[0]);
+        Object[][] data = new Object[list.size()][5];
+        for(int i = 0;i< list.size();i++) {
+            ContentsModel model = list.get(i);
+            for (int j = 0; j < 4; j++) {
+                if (j == 0) {
+                    data[i][j] = model.Title;
+                } else if (j == 1) {
+                    data[i][j] = model.Time;
+                } else if (j ==2 ){
+                    data[i][j] =model.Views;
+                }else{
+                    data[i][j] = model.Likes;
+                }
 
+            }
+        }
+        JTable table1 = new JTable(data,columnNames);
         return table1;
     }
-
     public void Visible() {
         subLabel.setText(classname()+"   "+classnum()+"분반   "+prname()+"교수님");
         frame1.setVisible(true);
+    }
+
+    public ArrayList<ContentsModel> getModel() {
+        return models;
+    }
+
+    public void setModel(ArrayList<ContentsModel> models) {
+        this.models = models;
+    }
+
+    public int getBoardidx() {
+        return Boardidx[0];
+    }
+
+    public static void setBoardidx(int boardidx) {
+        Boardidx[0] = boardidx;
     }
 }
