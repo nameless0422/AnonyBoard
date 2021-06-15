@@ -5,6 +5,8 @@ import Controler.MainProcess;
 import Model.BoardModel;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -40,6 +42,16 @@ public class produceView {
                 BoardModel bm = new BoardModel(comboBox1.getSelectedItem().toString(),comboBox2.getSelectedIndex()+1, comboBox3.getSelectedItem().toString());
                 bm = DBConnecter.AddNewBoard(bm);
                 mainProcess.ProduceView.frame.setVisible(false);
+                mainProcess.BoardlistView.setTable1(boardlistView.createTable(0));
+                mainProcess.BoardlistView.getTablescroll().setViewportView(mainProcess.BoardlistView.getTable1());
+                mainProcess.BoardlistView.getTable1().getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+                    public void valueChanged(ListSelectionEvent event) {
+                        // do some actions here, for example
+                        // print first column value from selected row
+                        mainProcess.BoardlistView.getFrame().setVisible(false);
+                        mainProcess.InBoardlistView.Visible();
+                    }
+                });
                 mainProcess.BoardlistView.Visible();
             }
         });

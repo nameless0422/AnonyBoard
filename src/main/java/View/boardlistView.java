@@ -22,6 +22,7 @@ public class boardlistView {
     private JLabel makeLabel;
     private JScrollPane tablescroll;
     private JFrame frame;
+    private JTable table1;
 
     public boardlistView(MainProcess p) {
         mainProcess = p;
@@ -31,7 +32,7 @@ public class boardlistView {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        JTable table1 = createTable(0);
+        table1 = createTable(0);
         tablescroll.setViewportView(table1);
         table1.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
@@ -66,6 +67,22 @@ public class boardlistView {
         }
         JTable table1 = new JTable(data,columnNames);
         return table1;
+    }
+
+    public void setTable1(JTable table1) {
+        this.table1 = table1;
+    }
+
+    public JTable getTable1() {
+        return table1;
+    }
+
+    public JScrollPane getTablescroll() {
+        return tablescroll;
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 
     public void Visible(){
