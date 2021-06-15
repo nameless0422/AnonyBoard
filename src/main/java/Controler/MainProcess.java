@@ -11,6 +11,7 @@ public class MainProcess {
     public static boardlistView BoardlistView;
     public static InBoardListView InBoardlistView;
     public static UserModel User;
+    public LoginView contentsReadView;
 
     public static void main(String[] args) {
         FlatIntelliJLaf.install();

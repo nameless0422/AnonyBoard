@@ -9,20 +9,18 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
-
 public class boardlistView {
-
-
+    private JFrame frame;
     private JButton Button1;
     private MainProcess mainProcess;
     private JPanel panel;
     private JLabel hiLabel;
     private JLabel makeLabel;
     private JScrollPane tablescroll;
-    private JFrame frame;
-    private JTable table1;
+    private static JTable table1;
 
     public boardlistView(MainProcess p) {
         mainProcess = p;
@@ -30,24 +28,29 @@ public class boardlistView {
         frame.setContentPane(panel);
         frame.setSize(800, 600);
         frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         table1 = createTable(0);
-        tablescroll.setViewportView(table1);
-        table1.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event) {
-                // do some actions here, for example
-                // print first column value from selected row
-                mainProcess.BoardlistView.frame.setVisible(false);
+        table1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mainProcess.InBoardlistView.Visible();
             }
         });
+        tablescroll.setViewportView(table1);
         Button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainProcess.ProduceView.Visible();
             }
         });
+    }
+    public static int classidx(){
+        JTable table = boardlistView.getTable1();
+        List<BoardModel> list = DBConnecter.getBoardList();
+        int i = table.getSelectedRow();
+        BoardModel model = list.get(i);
+        return model.getIdx();
     }
     public static JTable createTable(int k) {
         String[] columnNames = {"강의명", "분반" ,"교수명"};
@@ -73,7 +76,7 @@ public class boardlistView {
         this.table1 = table1;
     }
 
-    public JTable getTable1() {
+    public static JTable getTable1() {
         return table1;
     }
 
