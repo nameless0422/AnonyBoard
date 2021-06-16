@@ -28,7 +28,7 @@ public class LoginView {
     public LoginView(MainProcess p){
         mainProcess = p;
         frame = new JFrame();
-        icon = new ImageIcon(this.getClass().getResource("/logo.png"));
+        icon = new ImageIcon(this.getClass().getResource("/캡처.png"));
         Image img = icon.getImage();
         img = img.getScaledInstance(800,430,Image.SCALE_SMOOTH);
         icon = new ImageIcon(img);
