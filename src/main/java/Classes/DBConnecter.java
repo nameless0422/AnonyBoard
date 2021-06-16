@@ -307,6 +307,53 @@ public class DBConnecter {
         return model;
     }
 
+    public static ContentsModel getContetent(int idx){
+        ContentsModel model = new ContentsModel();
+        try {
+            // ssh 터널링
+            JSch jsch = new JSch();
+            Session session = jsch.getSession("root", "106.10.57.242", 5000);
+            session.setPassword("qawzsx351");
+            session.setConfig("StrictHostKeyChecking","no");
+            session.connect();
+
+            // 포트포워딩
+            int assinged_port = session.setPortForwardingL(8001,"localhost",3306);
+            System.out.println("localhost:"+assinged_port+" -> "+3306+":"+8001);
+            Connection con = null;
+            String driver = "org.mariadb.jdbc.Driver";
+            Class.forName(driver);
+            con = DriverManager.getConnection("jdbc:mariadb://localhost:8001/anonyBoard",
+                    "root",
+                    "qawzsx351");
+            System.out.println("db접속 성공");
+            if(con != null){
+            }
+
+            // db에 쿼리 쏘기
+            String sql = "SELECT * FROM post WHERE BOARD_IDX=" + idx;
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()){
+                model.setIdx(rs.getInt("idx"));
+                model.Time = rs.getString("TIME");
+                model.Title = rs.getString("TITLE");
+                model.Password = rs.getString("PASSWORD");
+                model.User_ID = rs.getInt("USER_ID");
+                model.Likes = rs.getInt("LIKES");
+                model.Content = rs.getString("CONTENT");
+                model.Views = rs.getInt("VIEWS");
+            }
+            rs.close();
+            con.close();
+            session.disconnect();
+        }catch (Exception ex){
+            System.out.println("오류 내역\n"+ex);
+        }
+
+        return model;
+    }
+
     public static void AddViews(int conIDX){
         try {
             // ssh 터널링

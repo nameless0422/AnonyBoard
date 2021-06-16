@@ -35,6 +35,8 @@ public class InBoardListView {
         table1.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mainProcess.contentsReadView = new ContentsReadView(mainProcess);
+                mainProcess.contentsReadView.setIdx(conidx());
                 mainProcess.contentsReadView.Visivle();
 
             }
