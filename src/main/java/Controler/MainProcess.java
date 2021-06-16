@@ -11,13 +11,12 @@ public class MainProcess {
     public static boardlistView BoardlistView;
     public static InBoardListView InBoardlistView;
     public static UserModel User;
-    public LoginView contentsReadView;
+    public static ContentsReadView contentsReadView;
 
     public static void main(String[] args) {
         FlatIntelliJLaf.install();
         MainProcess mainProcess = new MainProcess();
         loginView = new LoginView(mainProcess);
-        contentsWriteView = new ContentsWriteView(mainProcess);
         BoardlistView = new boardlistView(mainProcess);
         ProduceView = new produceView(mainProcess);
         loginView.Visivle();
