@@ -11,9 +11,7 @@ import Model.UserModel;
 import com.jcraft.jsch.*;
 import com.sun.tools.javac.Main;
 
-
 public class LoginView {
-
     private MainProcess mainProcess;
     private JPanel login;
     private JButton loginButton;
@@ -22,7 +20,6 @@ public class LoginView {
     private JPasswordField PSWD_TEXTFIELD;
     private JLabel logoLabel;
     private JFrame frame;
-
     private ImageIcon icon;
 
     public LoginView(MainProcess p){
@@ -38,7 +35,6 @@ public class LoginView {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-
 
         // 회원가입 기능 구현
         regsterButton.addActionListener(new ActionListener() {
