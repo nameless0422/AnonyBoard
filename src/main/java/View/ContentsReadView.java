@@ -7,6 +7,10 @@ import Model.ContentsModel;
 import Model.ReplyModel;
 
 import javax.swing.*;
+import javax.swing.plaf.DimensionUIResource;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ContentsReadView {
@@ -33,11 +37,40 @@ public class ContentsReadView {
         frame.setContentPane(MainPanel);
         frame.setSize(800,600);
         frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.pack();
-
-        editButton.setIcon(new ImageIcon("/resources/092-edit 1.png"));
+        addCommentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(textField1.getText().equals("")) return;
+                ReplyModel replyModel = new ReplyModel(mainProcess.User.USER_ID, mainProcess.User.PASSWORD, textField1.getText());
+                replyModel.Con_Num = idx;
+                replyModel = DBConnecter.AddNewReply(replyModel);
+                update();
+                mainProcess.contentsReadView.InVisivle();
+            }
+        });
+        RecommandButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DBConnecter.AddLikes(idx);
+                mainProcess.InBoardlistView.InVisivle();
+                InBoardListView.setBoardidx(mainProcess.BoardlistView.classidx());
+                int a = mainProcess.InBoardlistView.conidx();
+                mainProcess.InBoardlistView = new InBoardListView(mainProcess);
+                mainProcess.InBoardlistView.Visible();
+            }
+        });
+        xButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(model.User_ID == mainProcess.User.USER_ID && model.Password.equals(MainProcess.User.PASSWORD)) {
+                    DBConnecter.DeleteContent(idx, mainProcess.User);
+                    mainProcess.contentsReadView.InVisivle();
+                    mainProcess.InBoardlistView.InVisivle();
+                }
+            }
+        });
     }
 
     public ContentsModel getModel() {
@@ -86,6 +119,10 @@ public class ContentsReadView {
     public void setIdx(int idx) {
         this.idx = idx;
         update_model();
+    }
+
+    public void InVisivle(){
+        frame.setVisible(false);
     }
 
     public void Visivle(){

@@ -16,6 +16,11 @@ public class ReplyModel {
         Content = C;
         Time = T;
     }
+    public ReplyModel(int UID, String P, String C){
+        User_ID = UID;
+        Password = P;
+        Content = C;
+    }
 
     public void setIdx(int idx) {
         this.idx = idx;

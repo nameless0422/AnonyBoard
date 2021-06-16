@@ -37,6 +37,7 @@ public class InBoardListView {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mainProcess.contentsReadView = new ContentsReadView(mainProcess);
                 mainProcess.contentsReadView.setIdx(conidx());
+                DBConnecter.AddViews(conidx());
                 mainProcess.contentsReadView.Visivle();
 
             }
@@ -44,6 +45,8 @@ public class InBoardListView {
         scrollPane.setViewportView(table1);
         Button1.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
+                mainProcess.contentsWriteView = new ContentsWriteView(mainProcess);
+                mainProcess.isEdit = true;
                 mainProcess.contentsWriteView.Visivle();
             }
         });
@@ -101,6 +104,9 @@ public class InBoardListView {
     public void Visible() {
         subLabel.setText(classname()+"   "+classnum()+"분반   "+prname()+"교수님");
         frame1.setVisible(true);
+    }
+    public void InVisivle(){
+        frame1.setVisible(false);
     }
 
     public static JTable getTable1() {
