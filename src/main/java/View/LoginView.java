@@ -28,7 +28,7 @@ public class LoginView {
     public LoginView(MainProcess p){
         mainProcess = p;
         frame = new JFrame();
-        icon = new ImageIcon(this.getClass().getResource("/캡처.png"));
+        icon = new ImageIcon(this.getClass().getResource("/캡처1.png"));
         Image img = icon.getImage();
         img = img.getScaledInstance(800,430,Image.SCALE_SMOOTH);
         icon = new ImageIcon(img);
@@ -44,7 +44,6 @@ public class LoginView {
         regsterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 String pw = "";
                 char[] pw_ = PSWD_TEXTFIELD.getPassword();
                 for(char cha: pw_){
