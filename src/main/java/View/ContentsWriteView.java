@@ -32,19 +32,15 @@ public class ContentsWriteView {
 
     public ContentsWriteView(MainProcess p){
         mainProcess = p;
-
         frame = new JFrame();
         frame.setContentPane(MainPanel);
         frame.setSize(800,600);
         frame.setResizable(false);
         frame.pack();
-
         jfc = new JFileChooser();
-
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                     model = new ContentsModel();
                     if (textField1.getText().equals("") || textArea1.getText().equals("")) {
                         JOptionPane.showMessageDialog(null, "내용이 입력되지 않았습니다.", "오류!", JOptionPane.ERROR_MESSAGE);
@@ -67,7 +63,6 @@ public class ContentsWriteView {
             }
         });
     }
-
     public void setModel(ContentsModel model) {
         this.model = model;
     }
@@ -75,7 +70,6 @@ public class ContentsWriteView {
     public ContentsModel getModel() {
         return model;
     }
-
 
     public int getIdx() {
         return idx;
@@ -85,7 +79,7 @@ public class ContentsWriteView {
         this.idx = idx;
     }
 
-    public void Visivle(){
+    public void Visible(){
         frame.setVisible(true);
     }
 }

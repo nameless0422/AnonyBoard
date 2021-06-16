@@ -38,7 +38,7 @@ public class InBoardListView {
                 mainProcess.contentsReadView = new ContentsReadView(mainProcess);
                 mainProcess.contentsReadView.setIdx(conidx());
                 DBConnecter.AddViews(conidx());
-                mainProcess.contentsReadView.Visivle();
+                mainProcess.contentsReadView .Visible();
 
             }
         });
@@ -47,7 +47,7 @@ public class InBoardListView {
             public void actionPerformed(ActionEvent e){
                 mainProcess.contentsWriteView = new ContentsWriteView(mainProcess);
                 mainProcess.isEdit = true;
-                mainProcess.contentsWriteView.Visivle();
+                mainProcess.contentsWriteView.Visible();
             }
         });
     }

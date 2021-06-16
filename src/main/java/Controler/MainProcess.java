@@ -20,6 +20,6 @@ public class MainProcess {
         loginView = new LoginView(mainProcess);
         BoardlistView = new boardlistView(mainProcess);
         ProduceView = new produceView(mainProcess);
-        loginView.Visivle();
+        loginView.Visible();
     }
 }

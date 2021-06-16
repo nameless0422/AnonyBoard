@@ -182,7 +182,7 @@ public class LoginView {
         });
     }
 
-    public void Visivle(){
+    public void Visible(){
         frame.setVisible(true);
     }
 }

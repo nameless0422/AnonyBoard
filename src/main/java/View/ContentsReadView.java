@@ -37,7 +37,6 @@ public class ContentsReadView {
         frame.setContentPane(MainPanel);
         frame.setSize(800,600);
         frame.setResizable(false);
-
         frame.pack();
         addCommentButton.addActionListener(new ActionListener() {
             @Override
@@ -47,7 +46,7 @@ public class ContentsReadView {
                 replyModel.Con_Num = idx;
                 replyModel = DBConnecter.AddNewReply(replyModel);
                 update();
-                mainProcess.contentsReadView.InVisivle();
+                mainProcess.contentsReadView.InVisible();
             }
         });
         RecommandButton.addActionListener(new ActionListener() {
@@ -66,7 +65,7 @@ public class ContentsReadView {
             public void actionPerformed(ActionEvent e) {
                 if(model.User_ID == mainProcess.User.USER_ID && model.Password.equals(MainProcess.User.PASSWORD)) {
                     DBConnecter.DeleteContent(idx, mainProcess.User);
-                    mainProcess.contentsReadView.InVisivle();
+                    mainProcess.contentsReadView.InVisible();
                     mainProcess.InBoardlistView.InVisivle();
                 }
             }
@@ -121,11 +120,11 @@ public class ContentsReadView {
         update_model();
     }
 
-    public void InVisivle(){
+    public void InVisible(){
         frame.setVisible(false);
     }
 
-    public void Visivle(){
+    public void Visible(){
         frame.setVisible(true);
     }
 }
