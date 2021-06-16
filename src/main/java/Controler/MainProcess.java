@@ -12,6 +12,7 @@ public class MainProcess {
     public static InBoardListView InBoardlistView;
     public static UserModel User;
     public static ContentsReadView contentsReadView;
+    public boolean isEdit = false;
 
     public static void main(String[] args) {
         FlatIntelliJLaf.install();

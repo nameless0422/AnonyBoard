@@ -29,7 +29,7 @@ public class boardlistView {
         frame.setContentPane(panel);
         frame.setSize(800, 600);
         frame.setResizable(false);
-        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         table1 = createTable();
         table1.addMouseListener(new java.awt.event.MouseAdapter() {

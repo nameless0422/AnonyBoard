@@ -13,6 +13,7 @@ import com.jcraft.jsch.Session;
 import javax.management.modelmbean.ModelMBean;
 import javax.swing.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -164,7 +165,9 @@ public class DBConnecter {
     }
 
     public static ContentsModel AddNewContent(ContentsModel model){
-
+        Date date_now = new Date(System.currentTimeMillis());
+        SimpleDateFormat fourteen_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        model.Time = fourteen_format.format(date_now);
         try {
             // ssh 터널링
             JSch jsch = new JSch();
@@ -250,9 +253,15 @@ public class DBConnecter {
             }
 
             // db에 쿼리 쏘기
-            String sql = "DELETE TABLE post WHERE idx=" + conIDX +" AND USER_ID=" + U.USER_ID + " AND PASSWORD='" + U.PASSWORD + "'";
+            String sql = "DELETE FROM post WHERE idx=" + conIDX +" AND USER_ID=" + U.USER_ID + " AND PASSWORD='" + U.PASSWORD + "'";
             PreparedStatement pstmt = con.prepareStatement(sql);
             int r = pstmt.executeUpdate();
+            System.out.println("변경된 row : " + r);
+            pstmt.close();
+
+            sql = "DELETE FROM reply WHERE CON_NUM=" + conIDX;
+            pstmt = con.prepareStatement(sql);
+            r = pstmt.executeUpdate();
             System.out.println("변경된 row : " + r);
             pstmt.close();
 
@@ -331,7 +340,7 @@ public class DBConnecter {
             }
 
             // db에 쿼리 쏘기
-            String sql = "SELECT * FROM post WHERE BOARD_IDX=" + idx;
+            String sql = "SELECT * FROM post WHERE idx=" + idx;
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()){
@@ -494,6 +503,9 @@ public class DBConnecter {
     }
 
     public static ReplyModel AddNewReply(ReplyModel model){
+        Date date_now = new Date(System.currentTimeMillis());
+        SimpleDateFormat fourteen_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        model.Time = fourteen_format.format(date_now);
         try {
             // ssh 터널링
             JSch jsch = new JSch();
