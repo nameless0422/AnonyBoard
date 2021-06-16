@@ -21,11 +21,11 @@ public class ContentsWriteView {
     private JTextArea textArea1;
     private JTextField textField1;
     private JButton saveButton;
-    private JList list1;
     private JButton addFileButton;
     private MainProcess mainProcess;
     private JFrame frame;
     private JFileChooser jfc;
+    private int idx;
 
     public ContentsWriteView(MainProcess p){
         mainProcess = p;
@@ -158,6 +158,15 @@ public class ContentsWriteView {
 
     public ContentsModel getModel() {
         return model;
+    }
+
+
+    public int getIdx() {
+        return idx;
+    }
+
+    public void setIdx(int idx) {
+        this.idx = idx;
     }
 
     public void Visivle(){

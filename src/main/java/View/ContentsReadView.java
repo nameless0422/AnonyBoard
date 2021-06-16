@@ -16,8 +16,10 @@ public class ContentsReadView {
     private JTextField textField1;
     private JButton xButton;
     private JButton editButton;
-    private JTable table1;
     private JLabel TitleLabel;
+    private JButton RecommandButton;
+    private JScrollPane ScrollReply;
+    private int idx;
     private JFrame frame;
 
     public void ContentsReadView(MainProcess p){
@@ -27,6 +29,7 @@ public class ContentsReadView {
         frame.setSize(800,600);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         frame.pack();
 
         editButton.setIcon(new ImageIcon("/resources/092-edit 1.png"));
@@ -38,6 +41,23 @@ public class ContentsReadView {
 
     public void setModel(ContentsModel model) {
         this.model = model;
+    }
+
+    public void update(){
+        TitleLabel.setText(this.model.Title);
+        textArea1.setText(this.model.Content);
+    }
+
+    public void update_model(){
+
+    }
+
+    public int getIdx() {
+        return idx;
+    }
+
+    public void setIdx(int idx) {
+        this.idx = idx;
     }
 
     public void Visivle(){
