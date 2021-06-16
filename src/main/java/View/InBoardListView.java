@@ -67,6 +67,13 @@ public class InBoardListView {
         BoardModel model = list.get(i);
         return model.Prof_Name;
     }
+    public static int conidx(){
+        JTable table = InBoardListView.getTable1();
+        List<ContentsModel> list = DBConnecter.getContentList(Boardidx[0]);
+        int i = table.getSelectedRow();
+        ContentsModel model = list.get(i);
+        return model.getIdx();
+    }
     public static JTable createTable() {
         String[] columnNames = {"제목", "시간" ,"조회수","추천수"};
         List<ContentsModel> list = DBConnecter.getContentList(Boardidx[0]);
@@ -92,6 +99,10 @@ public class InBoardListView {
     public void Visible() {
         subLabel.setText(classname()+"   "+classnum()+"분반   "+prname()+"교수님");
         frame1.setVisible(true);
+    }
+
+    public static JTable getTable1() {
+        return table1;
     }
 
     public ArrayList<ContentsModel> getModel() {
