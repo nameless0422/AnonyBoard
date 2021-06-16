@@ -44,10 +44,10 @@ public class ContentsWriteView {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!(p.isEdit)) {
+
                     model = new ContentsModel();
                     if (textField1.getText().equals("") || textArea1.getText().equals("")) {
-                        JOptionPane.showMessageDialog(null, "내용이 입력되지 않앗습니다.", "오류!", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "내용이 입력되지 않았습니다.", "오류!", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     model.Title = textField1.getText();
@@ -64,28 +64,6 @@ public class ContentsWriteView {
                     mainProcess.contentsReadView = new ContentsReadView(mainProcess);
                     mainProcess.contentsReadView.setIdx(a);
                     mainProcess.InBoardlistView.Visible();
-                }else{
-                    if (textField1.getText().equals("") || textArea1.getText().equals("")) {
-                        JOptionPane.showMessageDialog(null, "내용이 입력되지 않앗습니다.", "오류!", JOptionPane.ERROR_MESSAGE);
-                        mainProcess.isEdit = false;
-                        return;
-                    }
-                    model.Title = textField1.getText();
-                    model.Content = textArea1.getText();
-                    model.User_ID = mainProcess.User.USER_ID;
-                    model.Password = mainProcess.User.PASSWORD;
-                    model.Board_ID = mainProcess.InBoardlistView.getBoardidx();
-                    model = DBConnecter.UpdateContent(model);
-                    frame.setVisible(false);
-                    mainProcess.InBoardlistView.InVisivle();
-                    InBoardListView.setBoardidx(mainProcess.BoardlistView.classidx());
-                    int a = mainProcess.InBoardlistView.conidx();
-                    mainProcess.InBoardlistView = new InBoardListView(mainProcess);
-                    mainProcess.contentsReadView = new ContentsReadView(mainProcess);
-                    mainProcess.contentsReadView.setIdx(a);
-                    mainProcess.isEdit = false;
-                    mainProcess.InBoardlistView.Visible();
-                }
             }
         });
     }

@@ -35,9 +35,14 @@ public class boardlistView {
         table1.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                InBoardListView.setBoardidx(classidx());
-                mainProcess.InBoardlistView = new InBoardListView(mainProcess);
-                mainProcess.InBoardlistView.Visible();
+                if(InBoardListView.prname().equals("김노윤")){
+                    JOptionPane.showMessageDialog(null, "김노윤은 교수가 아닙니다!", "오류!", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
+                    InBoardListView.setBoardidx(classidx());
+                    mainProcess.InBoardlistView = new InBoardListView(mainProcess);
+                    mainProcess.InBoardlistView.Visible();
+                }
             }
         });
         tablescroll.setViewportView(table1);
