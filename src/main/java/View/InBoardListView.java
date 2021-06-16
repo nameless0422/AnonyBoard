@@ -83,19 +83,21 @@ public class InBoardListView {
         String[] columnNames = {"제목", "시간" ,"조회수","추천수"};
         List<ContentsModel> list = DBConnecter.getContentList(Boardidx[0]);
         Object[][] data = new Object[list.size()][5];
-        for(int i = 0;i< list.size();i++) {
+        for (int i = 0;i < list.size(); i++) {
             ContentsModel model = list.get(i);
             for (int j = 0; j < 4; j++) {
                 if (j == 0) {
                     data[i][j] = model.Title;
                 } else if (j == 1) {
                     data[i][j] = model.Time;
-                } else if (j ==2 ){
-                    data[i][j] =model.Views;
-                }else{
-                    data[i][j] = model.Likes;
+                } else if (j == 2) {
+                    data[i][j] = model.Views;
+                } else {
+                    if (model.Likes > 0)
+                        data[i][j] = model.Likes -1;
+                    else
+                        data[i][j] = model.Likes;
                 }
-
             }
         }
         JTable table1 = new JTable(data,columnNames);

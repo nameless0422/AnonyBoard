@@ -38,11 +38,9 @@ public class boardlistView {
                 if(InBoardListView.prname().equals("김노윤")){
                     JOptionPane.showMessageDialog(null, "김노윤은 교수가 아닙니다!", "오류!", JOptionPane.ERROR_MESSAGE);
                 }
-                else{
-                    InBoardListView.setBoardidx(classidx());
-                    mainProcess.InBoardlistView = new InBoardListView(mainProcess);
-                    mainProcess.InBoardlistView.Visible();
-                }
+                InBoardListView.setBoardidx(classidx());
+                mainProcess.InBoardlistView = new InBoardListView(mainProcess);
+                mainProcess.InBoardlistView.Visible();
             }
         });
         tablescroll.setViewportView(table1);

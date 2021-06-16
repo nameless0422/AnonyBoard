@@ -17,20 +17,18 @@ public class produceView {
     private JScrollPane s1;
     private JScrollPane s2;
     private JScrollPane s3;
-
     private MainProcess mainProcess;
     private JFrame frame;
 
     public produceView(MainProcess p) {
         mainProcess = p;
         frame = new JFrame();
-        String menu1[] = {"자바","윈프","이산수학"};
-        String menu3[] = {"양재동","박현주","이형태"};
+        String menu1[] = {"JAVA","윈프","이산수학","데이터통신","논리설계"};
+        String menu3[] = {"양재동","박현주","이형태","조기환","윤수경","김노윤"};
         String menu2[] = {"1","2","3"};
         frame.setContentPane(panel1);
         frame.setSize(800, 600);
         frame.setResizable(false);
-        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         JComboBox comboBox1 = createBox(menu1);
         JComboBox comboBox2 = createBox(menu2);
@@ -64,7 +62,6 @@ public class produceView {
                 mainProcess.BoardlistView.Visible();
             }
         });
-
     }
     public static JComboBox createBox(String a[]) {
         JComboBox Box1 = new JComboBox(a);
